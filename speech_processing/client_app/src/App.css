@@ -1,0 +1,12 @@
+.App {
+
+}
+.recording-circle {
+  display: inline-block;
+  visibility: hidden;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  margin-right: 10px;
+  background-color: #bd2f09;
+}
