@@ -1,0 +1,18 @@
+{
+  "name": "speech_processing_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/speech": "^2.1.1",
+    "binaryjs": "^0.2.1",
+    "express": "^4.16.4",
+    "wav": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

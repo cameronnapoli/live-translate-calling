@@ -6,6 +6,11 @@ Using Google Cloud APIs, live translate audio into either subtitles or translate
 
 &nbsp;
 
+## Dependencies
+
+@google-cloud/speech
+binaryjs-client
+
 ## Documentation
 
 &nbsp;
