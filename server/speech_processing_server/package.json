@@ -7,6 +7,8 @@
     "@google-cloud/speech": "^2.1.1",
     "binaryjs": "^0.2.1",
     "express": "^4.16.4",
+    "socket.io": "^2.1.1",
+    "socket.io-stream": "^0.9.1",
     "wav": "^1.0.2"
   },
   "devDependencies": {},
