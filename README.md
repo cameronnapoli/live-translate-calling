@@ -2,15 +2,14 @@
 
 Using Google Cloud APIs, live translate audio into either subtitles or translated audio.
 
-## Setup
+# UI
 
-&nbsp;
+User interface built with React. Connects to server, emits buffered audio packets, and receives translated and original annotations.
 
-## Dependencies
+[UI Documentation](ui/client_app/README.md)
 
-@google-cloud/speech
-binaryjs-client
+# Server
 
-## Documentation
+Server written in Node.js. Collects, audio fragments, translates them, and upon a response from Google cloud, responds with text from audio and translated text.
 
-&nbsp;
+[Server Documentation](server/speech_processing_server/README.md)
