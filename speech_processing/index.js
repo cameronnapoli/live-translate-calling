@@ -1,12 +1,12 @@
 'use strict';
 
-// https://github.com/gabrielpoca/browser-pcm-stream
+// Some sourced from: https://github.com/gabrielpoca/browser-pcm-stream
 
 // Imports the Google Cloud client library
 const port = 8000;
 
 const socket = require('socket.io')(port);
-const speechToTextUtils = require('./speechToTextUtils');
+const speechToText = require('./speechToText');
 
 console.log("* Listening for socket on port " + port);
 
@@ -15,17 +15,17 @@ socket.on('connection', function (client) {
 
   client.on('startGoogleCloudStream', function(request) {
     console.log("* startGoogleCloudStream");
-    speechToTextUtils.startRecognitionStream(client, request);
+    speechToText.startRecognitionStream(client, request);
   });
 
   client.on('binaryAudioData', (data) => {
     console.log("* binaryAudioData");
-    speechToTextUtils.receiveData(data);
+    speechToText.receiveData(data);
   })
 
   client.on('endGoogleCloudStream', () => {
     console.log("* endGoogleCloudStream");
-    speechToTextUtils.stopRecognitionStream();
+    speechToText.stopRecognitionStream();
   });
 
   client.on('disconnect', function () {

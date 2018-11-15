@@ -17,7 +17,6 @@ let recognizeStream = null;
 module.exports = {
   /**
    * @param {object} client A socket client on which to emit events
-   * @param {object} GCSServiceAccount The credentials for our google cloud API access
    * @param {object} request A request object of the form expected by streamingRecognize. Variable keys and setup.
    */
   startRecognitionStream: function (client, request) {
@@ -27,15 +26,16 @@ module.exports = {
     }
     recognizeStream = speechClient.streamingRecognize(request)
       .on('error', (err) => {
-        console.error('Error when processing audio: ' + (err && err.code ? 'Code: ' + err.code + ' ' : '') + (err && err.details ? err.details : ''));
+        console.error('Error when processing audio: '
+          + (err && err.code ? 'Code: ' + err.code + ' ' : '')
+          + (err && err.details ? err.details : ''));
         client.emit('googleCloudStreamError', err);
         this.stopRecognitionStream();
       })
       .on('data', (data) => {
-        client.emit('speechData', data);
+        // client.emit('speechData', data);
 
-        console.log(data);
-        console.log("\n");
+        console.log(data + "\n");
 
         // if end of utterance, let's restart stream
         // this is a small hack. After 65 seconds of silence, the stream will still throw an error for speech length limit
@@ -47,7 +47,7 @@ module.exports = {
       });
   },
   /**
-   * Closes the recognize stream and wipes it
+   * Closes the recognize stream
    */
   stopRecognitionStream: function () {
     if (recognizeStream) {
@@ -57,11 +57,10 @@ module.exports = {
   },
   /**
    * Receives streaming data and writes it to the recognizeStream for transcription
-   *
-   * @param {Buffer} data A section of audio data
    */
   receiveData: function (data) {
     if (recognizeStream) {
+      // TODO: if stream is empty for more than 30 seconds, end stream
       recognizeStream.write(data);
     }
   }
