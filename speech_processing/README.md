@@ -13,10 +13,10 @@ For Google Cloud to connect to your account credentials, an environment variable
 To create the file and set the environment key:
 
 *  First create JSON service account key file following the instructions [here](https://support.google.com/a/answer/7378726?hl=en).
-*  Then, following the steps on the [Google quickstart page](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries?authuser=1) set the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path to your JSON file. 
+*  Then, following the steps on the [Google quickstart page](https://cloud.google.com/speech-to-text/docs/quickstart-client-libraries?authuser=1) set the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path to your JSON file.
 
 For example on Unix:
-```source GOOGLE_APPLICATION_CREDENTIALS=/path/to/creds.json```
+```export GOOGLE_APPLICATION_CREDENTIALS=/path/to/creds.json```
 
 
 #### Running the Server
