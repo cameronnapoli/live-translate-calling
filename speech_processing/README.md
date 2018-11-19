@@ -28,3 +28,4 @@ To start server on port 8000, run `node index.js`.
 ## Dependencies
     socket.io
     @google-cloud/speech
+    @google-cloud/translate
