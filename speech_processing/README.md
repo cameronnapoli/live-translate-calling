@@ -1,4 +1,4 @@
-# Speech Processing Server
+# Speech Processing Server / Client Interface
 
 Server written in Node.js. Collects, audio fragments, translates them, and upon a response from Google cloud, responds with text from audio and translated text.
 
