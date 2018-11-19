@@ -107,7 +107,7 @@ socket.on('messages', function(data) {
 });
 
 
-socket.on('speechData', function(data) {
+socket.on('speechDataWithTranslation', function(data, translation) {
   var dataFinal = undefined || data.results[0].isFinal;
 
   if (dataFinal === false) {
@@ -145,6 +145,17 @@ socket.on('speechData', function(data) {
       }
     }
     resultText.lastElementChild.appendChild(document.createTextNode('\u002E\u00A0'));
+    resultText.lastElementChild.appendChild(document.createElement("br"));
+
+
+    // Add translation span
+    let translationSpan = document.createElement('span');
+    translationSpan.classList.add("translation");
+    translationSpan.innerHTML = translation;
+    resultText.lastElementChild.appendChild(translationSpan);
+    resultText.lastElementChild.appendChild(document.createElement("br"));
+    resultText.lastElementChild.appendChild(document.createElement("br"));
+
 
     console.log("Google Speech sent 'final' Sentence.");
     finalWord = true;
@@ -173,6 +184,7 @@ function addTimeSettings(speechData, isFinal) {
   for (let i = 0; i < words.length; i++) {
     // Generate span
     let newSpan = document.createElement('span');
+    newSpan.classList.add("original_annotation");
 
 		let word = words[i].word;
 		if (i === 0) { word = capitalize(word);}
@@ -186,6 +198,7 @@ function addTimeSettings(speechData, isFinal) {
   }
   return words_with_time;
 }
+
 
 window.onbeforeunload = function() {
   if (streamStreaming) {

@@ -7,7 +7,14 @@ const express = require('express');
 
 // Google Cloud
 const speech = require('@google-cloud/speech');
+const {Translate} = require('@google-cloud/translate');
+// Initialize speech to text API
 const speechClient = new speech.SpeechClient();
+const projectId = 'speech-translating-annotation';
+// Initiate Google Translate API
+const translate = new Translate({
+  projectId: projectId,
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -56,6 +63,7 @@ io.on('connection', function(client) {
   });
 
   function startRecognitionStream(client, data) {
+    console.log("  startRecognitionStream");
     recognizeStream = speechClient.streamingRecognize(request)
       .on('error', console.error)
       .on('data', (data) => {
@@ -66,7 +74,17 @@ io.on('connection', function(client) {
 
 
         // TODO: Change here to take data and query the Google translate API.
-        client.emit('speechData', data);
+        let targetLanguage = "es";
+
+        if (data.results[0] && data.results[0].isFinal) {
+          translateText(data.results[0].alternatives[0].transcript, targetLanguage)
+            .then(function(translation) {
+              client.emit('speechDataWithTranslation', data, translation);
+            });
+
+        } else {
+          client.emit('speechDataWithTranslation', data, "");
+        }
 
         // After 65 seconds of silence, we restart the stream
         if (data.results[0] && data.results[0].isFinal) {
@@ -78,10 +96,23 @@ io.on('connection', function(client) {
   }
 
   function stopRecognitionStream() {
+    console.log("  stopRecognitionStream");
     if (recognizeStream) {
       recognizeStream.end();
     }
     recognizeStream = null;
+  }
+
+  function translateText(text, targetLanguage) {
+    return translate.translate(text, targetLanguage).then(results => {
+      const translation = results[0];
+      console.log(`Text: ${text}\nTranslation: ${translation}`);
+      return translation;
+    })
+    .catch(err => {
+      console.error('ERROR TRANSLATING:', err);
+      return "";
+    });
   }
 });
 
