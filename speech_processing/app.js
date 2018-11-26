@@ -47,8 +47,8 @@ io.on('connection', function(client) {
     client.emit('broad', data);
   });
 
-  client.on('startGoogleCloudStream', function(data) {
-    startRecognitionStream(this, data);
+  client.on('startGoogleCloudStream', function(targetLanguage) {
+    startRecognitionStream(this, targetLanguage);
   });
 
   client.on('endGoogleCloudStream', function(data) {
@@ -62,7 +62,7 @@ io.on('connection', function(client) {
     }
   });
 
-  function startRecognitionStream(client, data) {
+  function startRecognitionStream(client, targetLanguage) {
     console.log("  startRecognitionStream");
     recognizeStream = speechClient.streamingRecognize(request)
       .on('error', console.error)
@@ -71,10 +71,6 @@ io.on('connection', function(client) {
           (data.results[0] && data.results[0].alternatives[0]) ?
           `Transcription: ${data.results[0].alternatives[0].transcript}\n` :
           `\n\nReached transcription time limit, press Ctrl+C\n`);
-
-
-        // TODO: Change here to take data and query the Google translate API.
-        let targetLanguage = "es";
 
         if (data.results[0] && data.results[0].isFinal) {
           translateText(data.results[0].alternatives[0].transcript, targetLanguage)
@@ -90,7 +86,7 @@ io.on('connection', function(client) {
         if (data.results[0] && data.results[0].isFinal) {
           console.log('Restarted server stream');
           stopRecognitionStream();
-          startRecognitionStream(client);
+          startRecognitionStream(client, targetLanguage);
         }
       });
   }
