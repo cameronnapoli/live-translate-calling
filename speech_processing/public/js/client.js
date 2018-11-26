@@ -11,6 +11,7 @@ let bufferSize = 2048,
 let audioElement = document.querySelector('audio'),
   finalWord = false,
   resultText = document.getElementById('ResultText'),
+  targetLanguage = document.getElementById('targetLanguage'),
   removeLastSentence = true,
   streamStreaming = false;
 
@@ -25,8 +26,9 @@ const constraints = {
 
 // ================ RECORDING ================
 function initRecording() {
-  socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
+  socket.emit('startGoogleCloudStream', targetLanguage.value); // init socket Google Speech Connection
   streamStreaming = true;
+
   AudioContext = window.AudioContext || window.webkitAudioContext;
   context = new AudioContext();
   processor = context.createScriptProcessor(bufferSize, 1, 1);
