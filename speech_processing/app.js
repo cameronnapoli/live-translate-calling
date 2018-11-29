@@ -1,6 +1,8 @@
 'use strict'
 
 // Speech to Text with translated annotations program
+//   Written by: Cameron Napoli
+//   Created by: October 29, 2018
 // Credit to: https://github.com/vin-ni/Google-Cloud-Speech-Node-Socket-Playground
 
 const express = require('express');
@@ -8,9 +10,11 @@ const express = require('express');
 // Google Cloud
 const speech = require('@google-cloud/speech');
 const {Translate} = require('@google-cloud/translate');
+
 // Initialize speech to text API
 const speechClient = new speech.SpeechClient();
 const projectId = 'speech-translating-annotation';
+
 // Initiate Google Translate API
 const translate = new Translate({
   projectId: projectId,
@@ -36,6 +40,7 @@ app.get('/', function(req, res) {
 // ================ SOCKET.IO SERVER ================
 io.on('connection', function(client) {
   console.log('Client Connected to server');
+  console.log(client);
 
   let recognizeStream = null;
 
