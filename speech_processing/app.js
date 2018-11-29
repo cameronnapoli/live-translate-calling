@@ -106,14 +106,14 @@ io.on('connection', function(client) {
 
   function translateText(text, targetLanguage) {
     return translate.translate(text, targetLanguage).then(results => {
-      const translation = results[0];
-      console.log(`Text: ${text}\nTranslation: ${translation}`);
-      return translation;
-    })
-    .catch(err => {
-      console.error('ERROR TRANSLATING:', err);
-      return "";
-    });
+        const translation = results[0];
+        console.log(`Text: ${text}\nTranslation: ${translation}`);
+        return translation;
+      })
+      .catch(err => {
+        console.error('ERROR TRANSLATING:', err);
+        return "";
+      });
   }
 });
 
