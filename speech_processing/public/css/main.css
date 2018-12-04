@@ -7,6 +7,14 @@ body {
 
 .wrapper {
   padding: 20px;
+  width: 1000px;
+  margin: auto;
+}
+@media only screen and (max-width: 1040px) {
+    .wrapper {
+        padding: 2%;
+        width: 96%;
+    }
 }
 
 .original_annotation {
@@ -15,6 +23,7 @@ body {
 
 .translation {
   font-style: italic;
+  background-color: #d5d5d5;
 }
 
 
