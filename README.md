@@ -1,5 +1,7 @@
 # Live Translate Annotations
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Using Google Cloud APIs, live translate audio into either subtitles or translated audio.
 
 ## Speech Processing Server / Client Interface
