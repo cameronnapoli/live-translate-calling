@@ -1,12 +1,12 @@
 {
-  "name": "GoogleCloudSpeechPlayground",
-  "version": "1.0.1",
-  "description": "Google Cloud Speech Playground with node.js and socket.io.",
+  "name": "LiveTranslateAnnotations",
+  "version": "1.0.0",
+  "description": "Live translate annotations using socket.io and Google Cloud.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Cameron Napoli",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/speech": "2.1.1",
