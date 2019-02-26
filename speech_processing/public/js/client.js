@@ -10,8 +10,8 @@ let bufferSize = 2048,
 
 let audioElement = document.querySelector('audio'),
   finalWord = false,
-  resultText = document.getElementById('ResultText'),
-  targetLanguage = document.getElementById('targetLanguage'),
+  resultText = document.getElementById('resultText'),
+  languageSelect = document.getElementById('target-language'),
   removeLastSentence = true,
   streamStreaming = false;
 
@@ -26,7 +26,7 @@ const constraints = {
 
 // ================ RECORDING ================
 function initRecording() {
-  socket.emit('startGoogleCloudStream', targetLanguage.value); // init socket Google Speech Connection
+  socket.emit('startGoogleCloudStream', languageSelect.value); // init socket Google Speech Connection
   streamStreaming = true;
 
   AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -60,18 +60,18 @@ function microphoneProcess(e) {
 
 
 // ================ INTERFACE ================
-var startButton = document.getElementById("startRecButton");
+var startButton = document.getElementById("start-rec-button");
 startButton.addEventListener("click", startRecording);
 
-var endButton = document.getElementById("stopRecButton");
+var endButton = document.getElementById("stop-rec-button");
 endButton.addEventListener("click", stopRecording);
-endButton.disabled = true;
 
-var recordingStatus = document.getElementById("recordingStatus");
+var recordingStatus = document.getElementById("recording-status");
 
 function startRecording() {
   startButton.disabled = true;
   endButton.disabled = false;
+  languageSelect.disabled = true;
   recordingStatus.style.visibility = "visible";
   initRecording();
 }
@@ -80,6 +80,7 @@ function stopRecording() {
   // waited for FinalWord
   startButton.disabled = false;
   endButton.disabled = true;
+  languageSelect.disabled = false;
   recordingStatus.style.visibility = "hidden";
   streamStreaming = false;
   socket.emit('endGoogleCloudStream', '');
@@ -186,7 +187,7 @@ function addTimeSettings(speechData, isFinal) {
   for (let i = 0; i < words.length; i++) {
     // Generate span
     let newSpan = document.createElement('span');
-    newSpan.classList.add("original_annotation");
+    newSpan.classList.add("original-annotation");
 
 		let word = words[i].word;
 		if (i === 0) { word = capitalize(word);}

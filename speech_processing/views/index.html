@@ -1,6 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
-
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -9,32 +8,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" href="assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 </head>
 
 <body>
   <div class="wrapper">
-    <h1>Google Cloud Speech Annotation &amp; Translation</h1>
+    <h1 id="title">Annotation <span class="main-color">&amp;</span> Translation</h1>
+    <p id="page-desc">Speech to text and translation with Google Cloud platform. Test out the demo below.</p>
 
-    <br>
-    <button id="startRecButton" type="button"> Start recording</button>
-    <button id="stopRecButton" type="button"> Stop recording</button>
-    <label for="targetLanguage">
-      Target Language:&nbsp;
-    </label>
-    <select id="targetLanguage">
-      <option value="es">Spanish</option>
-      <option value="ar">Arabic</option>
-      <option value="zh-CN">Chinese (Simplified)</option>
-      <option value="is">Icelandic</option>
-      <option value="it">Italian</option>
-      <option value="ru">Russian</option>
-    </select>
-    <div id="recordingStatus">&nbsp;</div>
-    <br>
+    <div id="top-grid">
+      <div id="start-rec-button-box">
+        <button id="start-rec-button" type="button"> Start recording</button>
+      </div>
+      <div id="stop-rec-button-box">
+        <button id="stop-rec-button" type="button" disabled> Stop recording</button>
+      </div>
+
+
+      <div id="target-language-label">
+        <label id="target-language-label" for="target-language">
+          Target Language:&nbsp;
+        </label>
+      </div>
+      <div id="target-language-box">
+        <select id="target-language">
+          <option value="es">Spanish</option>
+          <option value="ar">Arabic</option>
+          <option value="zh-CN">Chinese (Simplified)</option>
+          <option value="is">Icelandic</option>
+          <option value="it">Italian</option>
+          <option value="ru">Russian</option>
+        </select>
+        <div id="recording-status">&nbsp;</div>
+      </div>
+    </div>
 
     <div>
-      <p id="ResultText">
-        <span class="original_annotation">
+      <p id="resultText">
+        <span class="original-annotation">
           No annotations yet, start recording to begin annotation and translation.
         <span>
       </p>

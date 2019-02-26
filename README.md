@@ -28,7 +28,7 @@ For example on Unix:
 
 #### Running the Server
 
-To start server on port 8000, run `node index.js`.
+To start server on port 8000, run `node app.js`.
 
 
 ## Dependencies

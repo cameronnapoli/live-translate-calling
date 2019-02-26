@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // Speech to Text with translated annotations program
 //   Written by: Cameron Napoli
@@ -9,7 +9,7 @@ const express = require('express');
 
 // Google Cloud
 const speech = require('@google-cloud/speech');
-const {Translate} = require('@google-cloud/translate');
+const { Translate } = require('@google-cloud/translate');
 
 // Initialize speech to text API
 const speechClient = new speech.SpeechClient();
@@ -35,6 +35,28 @@ app.get('/', function(req, res) {
     root: __dirname
   });
 });
+
+app.get('/languages', (req, res) => {
+  getLanguagesExceptEnglish()
+  .then((languages) => {
+    if (languages == null) {
+      res.send({error: "Google returned empty result. Check logs."});
+    }
+    res.send(languages);
+  });
+});
+
+async function getLanguagesExceptEnglish() {
+  return translate.getLanguages()
+  .then((languages) => {
+    return languages;
+  })
+  .catch((e) => {
+    console.log("Error: " + e);
+    return null;
+  });
+}
+
 
 
 // ================ SOCKET.IO SERVER ================
