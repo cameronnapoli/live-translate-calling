@@ -39,20 +39,30 @@ h1#title {
 }
 #target-language-label {
   grid-area: 1 / 2 / 2 / 3;
+  align-self: end;
 }
 #target-language-box {
   grid-area: 2 / 2 / 3 / 3;
 }
 
+button:focus {
+  outline: 0;
+}
 #start-rec-button {
   width: 80%;
   height: 40px;
   margin: 5px 10% 5px 10%;
-  background-color: #138dc9;
+  background-color: #138DC9;
   border: none;
   color: white;
   font-size: 16px;
   border-radius: 5px;
+}
+#start-rec-botton:hover:enabled {
+  background-color: #00f;
+}
+#start-rec-botton:active:enabled {
+  background-color: #f00;
 }
 #start-rec-button:disabled {
   background-color: #b7d9e9;
@@ -71,9 +81,12 @@ h1#title {
   background-color: #ececec;
 }
 #target-language-label {
-
+  margin: 5px 0 5px 0;
+  font-size: 18px;
+  text-decoration: underline;
 }
 #target-language {
+  margin: 5px 0 5px 0;
 
 }
 
