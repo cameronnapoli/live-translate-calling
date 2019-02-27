@@ -4,6 +4,8 @@
 
 Using Google Cloud APIs, live translate audio into either subtitles or translated audio.
 
+![Recording of app](recording.gif)
+
 ## Speech Processing Server / Client Interface
 
 Server written in Node.js. Collects, audio fragments, translates them, and upon a response from Google cloud, responds with text from audio and translated text.
