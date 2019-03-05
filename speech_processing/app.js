@@ -16,9 +16,7 @@ const speechClient = new speech.SpeechClient();
 const projectId = 'speech-translating-annotation';
 
 // Initiate Google Translate API
-const translate = new Translate({
-  projectId: projectId,
-});
+const translate = new Translate({projectId: projectId});
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -27,6 +25,26 @@ const io = require('socket.io')(server);
 
 
 app.use('/assets', express.static(__dirname + '/public'));
+
+
+// ================ GOOGLE CLOUD CONFIG ================
+// The encoding of the audio file, e.g. 'LINEAR16'
+// The sample rate of the audio file in hertz, e.g. 16000
+// The BCP-47 language code to use, e.g. 'en-US'
+const encoding = 'LINEAR16';
+const sampleRateHertz = 16000;
+const languageCode = 'en-US'; //en-US
+
+const request = {
+  config: {
+    encoding: encoding,
+    sampleRateHertz: sampleRateHertz,
+    languageCode: languageCode,
+    profanityFilter: false,
+    enableWordTimeOffsets: true
+  },
+  interimResults: true
+};
 
 
 // ================ EXPRESS ROUTERS ================
@@ -62,7 +80,7 @@ async function getLanguagesExceptEnglish() {
 // ================ SOCKET.IO SERVER ================
 io.on('connection', function(client) {
   console.log('Client Connected to server');
-  console.log(client);
+  // console.log(client);
 
   let recognizeStream = null;
 
@@ -140,27 +158,7 @@ io.on('connection', function(client) {
 });
 
 
-// ================ GOOGLE CLOUD CONFIG ================
-// The encoding of the audio file, e.g. 'LINEAR16'
-// The sample rate of the audio file in hertz, e.g. 16000
-// The BCP-47 language code to use, e.g. 'en-US'
-const encoding = 'LINEAR16';
-const sampleRateHertz = 16000;
-const languageCode = 'en-US'; //en-US
-
-const request = {
-  config: {
-    encoding: encoding,
-    sampleRateHertz: sampleRateHertz,
-    languageCode: languageCode,
-    profanityFilter: false,
-    enableWordTimeOffsets: true
-  },
-  interimResults: true
-};
-
-
 // ================ START SERVER ================
 server.listen(port, "127.0.0.1", function() {
-  console.log('Server started on port:' + port)
+  console.log('Server started on port ' + port)
 });
