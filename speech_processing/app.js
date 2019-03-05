@@ -1,5 +1,3 @@
-'use strict';
-
 // Speech to Text with translated annotations program
 //   Written by: Cameron Napoli
 //   Created by: October 29, 2018
