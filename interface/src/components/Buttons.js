@@ -26,6 +26,6 @@ function StopButton(props) {
 }
 
 export {
-	StartButton,
-	StopButton
+  StartButton,
+  StopButton
 };

@@ -28,6 +28,6 @@ function LanguageSelector(props) {
 }
 
 export {
-	LanguageLabel,
-	LanguageSelector
+  LanguageLabel,
+  LanguageSelector
 };
