@@ -6,7 +6,7 @@ import ResultText from './components/ResultText';
 import openSocket from 'socket.io-client';
 var socket = openSocket('http://localhost:8000');
 let bufferSize = 2048,
-  AudioContext, context, processor, input, globalStream;
+    AudioContext, context, processor, input, globalStream;
 
 window.onbeforeunload = function() {
   // if is streaming
@@ -43,19 +43,6 @@ function downsampleBuffer(buffer, sampleRate, outSampleRate) {
   }
   return result.buffer;
 }
-
-const constraintsGCloud = { audio: true, video: false };
-
-
-
-
-
-
-
-
-
-
-
 
 
 class App extends Component {
@@ -134,6 +121,11 @@ class App extends Component {
       processor.onaudioprocess = function(e) {
         microphoneProcess(e);
       };
+    };
+
+    const constraintsGCloud = {
+      audio: true,
+      video: false
     };
 
     navigator.mediaDevices.getUserMedia(constraintsGCloud).then(handleSuccess);

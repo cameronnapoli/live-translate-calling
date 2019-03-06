@@ -17,12 +17,9 @@ const projectId = 'speech-translating-annotation';
 const translate = new Translate({projectId: projectId});
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-
-
-app.use('/assets', express.static(__dirname + '/public'));
 
 
 // ================ GOOGLE CLOUD CONFIG ================
@@ -46,23 +43,27 @@ const request = {
 
 
 // ================ EXPRESS ROUTERS ================
-app.get('/', function(req, res) {
-  res.sendFile('views/index.html', {
-    root: __dirname
-  });
-});
-
 app.get('/languages', (req, res) => {
-  getLanguagesExceptEnglish()
+  let filterLanguageCodes = req.query.languageFilter;
+
+  getLanguagesAndFilter()
   .then((languages) => {
     if (languages == null) {
-      res.send({error: "Google returned empty result. Check logs."});
+      res.send({error: "Google returned empty result."});
     }
-    res.send(languages);
+    if (!languages instanceof Array || !languages.length > 0) {
+      res.send({error: "Google returned unexpected data format: " + languages});
+    }
+    if (filterLanguageCodes) {
+      let filtered = languages[0].filter(obj => obj.code != filterLanguageCodes);
+      res.send(filtered);
+      return;
+    }
+    res.send(languages[0]);
   });
 });
 
-async function getLanguagesExceptEnglish() {
+async function getLanguagesAndFilter() {
   return translate.getLanguages()
   .then((languages) => {
     return languages;
