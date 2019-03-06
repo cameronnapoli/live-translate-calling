@@ -171,10 +171,8 @@ socket.on('speechDataWithTranslation', function(data, translation) {
 
 // ================ FORMAT GCLOUD RESPONSE ================
 function addTimeSettings(speechData, isFinal) {
-  let wholeString = speechData.results[0].alternatives[0].transcript;
   let words;
-	// Data is formatted differently when it is the end of the sentence
-	//	 versus interim results
+	// Data is formatted differently when it is the end of the sentence versus interim results
   if (isFinal) {
     words = speechData.results[0].alternatives[0].words
   } else {

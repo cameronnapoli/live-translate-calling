@@ -5,7 +5,8 @@ function StartButton(props) {
     <div id="start-rec-button-box">
       <button id="start-rec-button"
               type="button"
-              onClick={() => props.startRecording()}>
+              onClick={() => props.startRecording()}
+              disabled={props.isActive}>
         Start recording
       </button>
     </div>
@@ -18,7 +19,7 @@ function StopButton(props) {
       <button id="stop-rec-button"
               type="button"
               onClick={() => props.stopRecording()}
-              disabled>
+              disabled={!props.isActive}>
         Stop recording
       </button>
     </div>
