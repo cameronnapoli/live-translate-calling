@@ -5,6 +5,8 @@ import ResultText from './components/ResultText';
 
 import openSocket from 'socket.io-client';
 var socket = openSocket('http://localhost:8000');
+
+// TODO: Change from global to class level variables
 let bufferSize = 2048,
     AudioContext, context, processor, input, globalStream;
 
@@ -60,12 +62,43 @@ class App extends Component {
     socket.on('speechDataWithTranslation', function(data, translation) {
       console.log(data);
       console.log(translation);
+
+      let dataFinal = undefined || data.results[0].isFinal;
+      let words;
+
+      if (dataFinal === false) {
+        words = data.results[0].alternatives[0].words;
+        let sentence = words.map((wordObj) => wordObj.word).join(' ');
+
+        this.setState({
+          currentSpeechText: sentence
+        });
+      } else if (dataFinal === true) {
+        words = data.results[0].alternatives[0].transcript.split(" ")
+                  .map((word) => { return {word: word} });
+        let sentence = words.map((wordObj) => wordObj.word).join(' ');
+
+        let annotationObj = {
+          original: sentence,
+          translated: translation,
+          language: this.state.languageSelected
+        };
+
+        let newAnnotations = this.state.annotations.slice();
+        newAnnotations.push(annotationObj);
+
+        this.setState({
+          annotations: newAnnotations,
+          currentSpeechText: ""
+        });
+      }
     });
 
     this.state = {
       isStreaming: false,
       languageSelected: '',
-      annotations: [] // [{original: "", "translated": "", "language": ""}, ...]
+      annotations: [], // [{original: "", "translated": "", "language": ""}, ...]
+      currentSpeechText: ""
     };
 
     this.startRecording = this.startRecording.bind(this);
@@ -85,22 +118,25 @@ class App extends Component {
 
     socket.emit('endGoogleCloudStream', '');
 
-    let track = globalStream.getTracks()[0];
-    track.stop();
+    if (globalStream) {
+      let track = globalStream.getTracks()[0];
+      track.stop();
 
-    input.disconnect(processor);
-    processor.disconnect(context.destination);
+      input.disconnect(processor);
+      processor.disconnect(context.destination);
 
-    context.close().then(function() {
-      input = null;
-      processor = null;
-      context = null;
-      AudioContext = null;
-    });
+      context.close().then(function() {
+        input = null;
+        processor = null;
+        context = null;
+        AudioContext = null;
+      });
+    }
   }
 
   changeLanguage(targetLanguage) {
     console.log("Setting target language: " + targetLanguage);
+    this.stopRecording()
     this.setState({languageSelected: targetLanguage});
   }
 
@@ -149,7 +185,8 @@ class App extends Component {
         </div>
 
         <div>
-          <ResultText/>
+          <ResultText annotations={this.state.annotations}
+                      currentSpeechText={this.state.currentSpeechText}/>
         </div>
       </div>
     );
