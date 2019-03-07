@@ -7,9 +7,9 @@ import openSocket from 'socket.io-client';
 import { downsampleBuffer } from './helpers.js';
 
 
-let bufferSize = 2048,
+let BUFFER_SIZE = 2048,
     AudioContext, context, processor, input, globalStream;
-    
+
 
 class App extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class App extends Component {
       newAnnotations.push(annotationObj);
 
       if (isDataFinal === true) {
-        newAnnotations.push({}); // Push empty object to finalize this transcript
+        newAnnotations.push({}); // Push empty object to finalize translation line
       }
 
       this.setState({
@@ -99,13 +99,12 @@ class App extends Component {
 
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
-    processor = context.createScriptProcessor(bufferSize, 1, 1);
+    processor = context.createScriptProcessor(BUFFER_SIZE, 1, 1);
     processor.connect(context.destination);
     context.resume();
 
     var microphoneProcess = (e) => {
-      let left = e.inputBuffer.getChannelData(0);
-      let left16 = downsampleBuffer(left, 44100, 16000)
+      let left16 = downsampleBuffer(e.inputBuffer.getChannelData(0), 44100, 16000);
       this.socket.emit("binaryData", left16);
     }
 
