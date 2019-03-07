@@ -11,9 +11,6 @@ function ResultText(props) {
           </div>
         )
       })}
-      <div className="original">
-        {props.currentSpeechText}
-      </div>
     </div>
   );
 }

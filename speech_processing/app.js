@@ -75,7 +75,6 @@ async function getLanguagesAndFilter() {
 }
 
 
-
 // ================ SOCKET.IO SERVER ================
 io.on('connection', function(client) {
   console.log('Client Connected to server');

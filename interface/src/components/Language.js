@@ -14,6 +14,7 @@ function LanguageSelector(props) {
   return (
     <div id="target-language-box">
       <select id="target-language"
+              value={props.languageSelected}
               onChange={(e) => {props.changeLanguage(e.target.value)}}>
         <option value="es">Spanish</option>
         <option value="ar">Arabic</option>
