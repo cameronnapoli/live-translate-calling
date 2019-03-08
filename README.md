@@ -4,7 +4,7 @@
 
 Using Google Cloud APIs, live translate audio into either subtitles or translated audio.
 
-![Recording of app](recording.gif)
+![Picture of app](translation.png)
 
 ## Speech Processing Server
 
