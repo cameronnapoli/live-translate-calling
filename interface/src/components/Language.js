@@ -1,8 +1,9 @@
 import React from 'react';
+import Select from 'react-select';
 
 function LanguageLabel(props) {
   return (
-    <div id="target-language-label">
+    <div id="target-language-label-box">
       <label id="target-language-label" htmlFor="target-language">
         Target Language:&nbsp;
       </label>
@@ -10,20 +11,24 @@ function LanguageLabel(props) {
   );
 }
 
+const options = [
+  { value: 'es', label: "Spanish" },
+  { value: 'ar', label: "Arabic" },
+  { value: 'zh-CN', label: "Chinese (Simplified)" },
+  { value: 'is', label: "Icelandic" },
+  { value: 'it', label: "Italian" },
+  { value: 'ru', label: "Russian" }
+];
+
 function LanguageSelector(props) {
+
   return (
     <div id="target-language-box">
-      <select id="target-language"
-              value={props.languageSelected}
-              onChange={(e) => {props.changeLanguage(e.target.value)}}>
-        <option value="es">Spanish</option>
-        <option value="ar">Arabic</option>
-        <option value="zh-CN">Chinese (Simplified)</option>
-        <option value="is">Icelandic</option>
-        <option value="it">Italian</option>
-        <option value="ru">Russian</option>
-      </select>
-      {props.isRecording && <div id="recording-status">&nbsp;</div>}
+      <Select 
+        value={props.languageSelected}
+        onChange={props.changeLanguage}
+        options={options}
+      />
     </div>
   );
 }

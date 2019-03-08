@@ -1,14 +1,16 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 function StartButton(props) {
   return (
     <div id="start-rec-button-box">
-      <button id="start-rec-button"
-              type="button"
-              onClick={() => props.startRecording()}
-              disabled={props.isActive}>
-        Start recording
-      </button>
+      <Button variant="primary"
+              size="lg"
+              block
+              disabled={props.isActive}
+              onClick={props.startRecording}>
+        Start Recording
+      </Button>
     </div>
   );
 }
@@ -16,12 +18,13 @@ function StartButton(props) {
 function StopButton(props) {
   return (
     <div id="stop-rec-button-box">
-      <button id="stop-rec-button"
-              type="button"
-              onClick={() => props.stopRecording()}
-              disabled={!props.isActive}>
-        Stop recording
-      </button>
+      <Button variant="secondary"
+              size="lg"
+              block
+              disabled={!props.isActive}
+              onClick={props.stopRecording}>
+        Stop Recording
+      </Button>
     </div>
   );
 }

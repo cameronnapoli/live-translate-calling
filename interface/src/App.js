@@ -17,8 +17,17 @@ class App extends Component {
 
     this.state = {
       isStreaming: false,
-      languageSelected: "es",
-      annotations: [] // [{original: "", "translated": "", "language": ""}, ...]
+      languageSelected: { value: 'es', label: "Spanish" },
+      annotations: [{
+        original: "Here's some content",
+        translated: "Aqui es algun contento.",
+        language: "es"
+      },
+      {
+        original: "How are you?",
+        translated: "Como estas",
+        language: "es"
+      }] // [{original: "", translated: "", language: ""}, ...]
     };
 
     this.socket = openSocket("http://localhost:8000");
@@ -95,7 +104,7 @@ class App extends Component {
   }
 
   initRecording() {
-    this.socket.emit('startGoogleCloudStream', this.state.languageSelected);
+    this.socket.emit('startGoogleCloudStream', this.state.languageSelected.value);
 
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
@@ -129,24 +138,28 @@ class App extends Component {
   render() {
     return (
       <div className="wrapper">
-        <h1 id="title">Annotation <span className="main-color">&amp;</span> Translation</h1>
-        <p id="page-desc">Speech to text and translation with Google Cloud platform. Test out the demo below.</p>
-
-        <div id="top-grid">
-          <StartButton startRecording={this.startRecording}
-                       isActive={this.state.isStreaming}/>
-          <StopButton stopRecording={this.stopRecording}
-                      isActive={this.state.isStreaming}/>
-
-          <LanguageLabel/>
-          <LanguageSelector changeLanguage={this.changeLanguage}
-                            languageSelected={this.state.languageSelected}
-                            isRecording={this.state.isStreaming}/>
+        <div id="header">
+          <span id="title">Speech Annotation &amp; Translation</span>
         </div>
 
-        <div>
-          <ResultText annotations={this.state.annotations}
-                      currentSpeechText={this.state.currentSpeechText}/>
+        <div id="content">
+          <p id="page-description">Speech to text and translation with Google Cloud platform. Test out the demo below.</p>
+
+          <div id="top-grid">
+            <StartButton startRecording={this.startRecording}
+                         isActive={this.state.isStreaming}/>
+            <StopButton stopRecording={this.stopRecording}
+                        isActive={this.state.isStreaming}/>
+
+            <LanguageLabel/>
+            <LanguageSelector changeLanguage={this.changeLanguage}
+                              languageSelected={this.state.languageSelected}/>
+          </div>
+
+          <div className="result-text-container">
+            <ResultText annotations={this.state.annotations}
+                        currentSpeechText={this.state.currentSpeechText}/>
+          </div>
         </div>
       </div>
     );
