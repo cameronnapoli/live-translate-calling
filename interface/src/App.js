@@ -18,16 +18,7 @@ class App extends Component {
     this.state = {
       isStreaming: false,
       languageSelected: { value: 'es', label: "Spanish" },
-      annotations: [{
-        original: "Here's some content",
-        translated: "Aqui es algun contento.",
-        language: "es"
-      },
-      {
-        original: "How are you?",
-        translated: "Como estas",
-        language: "es"
-      }] // [{original: "", translated: "", language: ""}, ...]
+      annotations: [] // [{original: "", translated: "", language: ""}, ...]
     };
 
     this.socket = openSocket("http://localhost:8000");
