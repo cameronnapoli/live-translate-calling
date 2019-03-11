@@ -27,7 +27,7 @@ span#title {
 }
 
 @media only screen and (max-width: 840px) {
-
+  /* Add Mobile friendly styling */
 }
 
 
@@ -78,20 +78,3 @@ span#title {
   padding: 8px;
   margin-bottom: 10px;
 }
-
-
-@-webkit-keyframes redGlow {
-  from {
-    background-color: #8c190a;
-    -webkit-box-shadow: 0 0 9px #9c291a;
-  }
-  50% {
-    background-color: #9c291a;
-    -webkit-box-shadow: 0 0 18px #bdb5b4;
-  }
-  to {
-    background-color: #8c190a;
-    -webkit-box-shadow: 0 0 9px #9c291a;
-  }
-}
-
