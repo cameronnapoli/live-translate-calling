@@ -21,7 +21,6 @@ const options = [
 ];
 
 function LanguageSelector(props) {
-
   return (
     <div id="target-language-box">
       <Select 
