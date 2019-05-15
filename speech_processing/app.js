@@ -63,7 +63,7 @@ app.get('/languages', (req, res) => {
   });
 });
 
-async function getLanguagesAndFilter() {
+function getLanguagesAndFilter() {
   return translate.getLanguages()
   .then((languages) => {
     return languages;
