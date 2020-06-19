@@ -28,7 +28,7 @@ const io = require('socket.io')(server);
 // The BCP-47 language code to use, e.g. 'en-US'
 const encoding = 'LINEAR16';
 const sampleRateHertz = 16000;
-const languageCode = 'en-US'; //en-US
+const languageCode = 'es'; //en-US - english, es - spanish
 
 const request = {
   config: {
@@ -47,20 +47,20 @@ app.get('/languages', (req, res) => {
   let filterLanguageCodes = req.query.languageFilter;
 
   getLanguagesAndFilter()
-  .then((languages) => {
-    if (languages == null) {
-      res.send({error: "Google returned empty result."});
-    }
-    if (!languages instanceof Array || !languages.length > 0) {
-      res.send({error: "Google returned unexpected data format: " + languages});
-    }
-    if (filterLanguageCodes) {
-      let filtered = languages[0].filter(obj => obj.code != filterLanguageCodes);
-      res.send(filtered);
-      return;
-    }
-    res.send(languages[0]);
-  });
+    .then((languages) => {
+      if (languages == null) {
+        res.send({error: "Google returned empty result."});
+      }
+      if (!languages instanceof Array || !languages.length > 0) {
+        res.send({error: "Google returned unexpected data format: " + languages});
+      }
+      if (filterLanguageCodes) {
+        let filtered = languages[0].filter(obj => obj.code != filterLanguageCodes);
+        res.send(filtered);
+        return;
+      }
+      res.send(languages[0]);
+    });
 });
 
 function getLanguagesAndFilter() {

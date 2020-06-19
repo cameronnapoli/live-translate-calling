@@ -14,7 +14,7 @@ function LanguageLabel(props) {
 const options = [
   { value: 'es', label: "Spanish" },
   { value: 'ar', label: "Arabic" },
-  { value: 'zh-CN', label: "Chinese (Simplified)" },
+  { value: 'zh', label: "Chinese (Simplified)" },
   { value: 'is', label: "Icelandic" },
   { value: 'it', label: "Italian" },
   { value: 'ru', label: "Russian" }
@@ -24,6 +24,7 @@ function LanguageSelector(props) {
   return (
     <div id="target-language-box">
       <Select 
+        isDisabled
         value={props.languageSelected}
         onChange={props.changeLanguage}
         options={options}

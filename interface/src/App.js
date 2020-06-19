@@ -17,7 +17,8 @@ class App extends Component {
 
     this.state = {
       isStreaming: false,
-      languageSelected: { value: 'es', label: "Spanish" },
+      // languageSelected: { value: 'es', label: "Spanish" },
+      languageSelected: { value: 'en', label: "English" },
       annotations: [] // [{original: "", translated: "", language: ""}, ...]
     };
 
@@ -134,22 +135,31 @@ class App extends Component {
         </div>
 
         <div id="content">
-          <p id="page-description">Speech to text and translation with Google Cloud platform. Test out the demo below.</p>
+          <p id="page-description">
+            Speech to text and translation with Google Cloud platform. Test out the demo below.
+          </p>
 
           <div id="top-grid">
-            <StartButton startRecording={this.startRecording}
-                         isActive={this.state.isStreaming}/>
-            <StopButton stopRecording={this.stopRecording}
-                        isActive={this.state.isStreaming}/>
-
+            <StartButton
+              startRecording={this.startRecording}
+              isActive={this.state.isStreaming}
+            />
+            <StopButton
+              stopRecording={this.stopRecording}
+              isActive={this.state.isStreaming}
+            />
             <LanguageLabel/>
-            <LanguageSelector changeLanguage={this.changeLanguage}
-                              languageSelected={this.state.languageSelected}/>
+            <LanguageSelector
+              changeLanguage={this.changeLanguage}
+              languageSelected={this.state.languageSelected}
+            />
           </div>
 
           <div className="result-text-container">
-            <ResultText annotations={this.state.annotations}
-                        currentSpeechText={this.state.currentSpeechText}/>
+            <ResultText
+              annotations={this.state.annotations}
+              currentSpeechText={this.state.currentSpeechText}
+            />
           </div>
         </div>
       </div>
