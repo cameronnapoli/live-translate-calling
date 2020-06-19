@@ -37,14 +37,3 @@ To create the file and set the environment key:
 
 For example on Unix:
 ```export GOOGLE_APPLICATION_CREDENTIALS=/path/to/creds.json```
-
-
-#### Running the Server
-
-To start server on port 8000, run `node app.js`.
-
-
-## Dependencies
-    socket.io
-    @google-cloud/speech
-    @google-cloud/translate
