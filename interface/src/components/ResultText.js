@@ -13,6 +13,7 @@ function ResultText(props) {
               </div>
             );
           }
+          return null;
         })}
       </div>
     );
