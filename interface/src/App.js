@@ -99,6 +99,7 @@ class App extends Component {
 
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
+    // NOTE: createScriptProcessor is deprecated
     processor = context.createScriptProcessor(BUFFER_SIZE, 1, 1);
     processor.connect(context.destination);
     context.resume();
